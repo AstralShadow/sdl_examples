@@ -21,7 +21,17 @@
  * We'll create the window later.
  */
 SDL_Window* window = NULL;
-
+/* A more detailed example of what can go wrong.
+ * Let's say you create your window here like this:
+ *
+ * SDL_Window* window = SDL_CreateWindow(...);
+ *     or any function that calls SDL_*
+ *
+ * This will run before the program enters main() and before the call to SDL_Init.
+ * Then SDL will try to create a window before it initializes and will fail.
+ * That's why you want your global variables to be NULL
+ *  until you initialize SDL and then initialize them.
+ */
 
 int main(int argc, char** argv)
 {
@@ -38,18 +48,26 @@ int main(int argc, char** argv)
     if(SDL_Init(SDL_INIT_VIDEO) != 0) {
 
         /* Print SDL error to standard output (console)
-         * The function is similar to fprint in <stdio.h>
+         * The function is similar to printf in <stdio.h>
          *
          * Arguments:
-         *  - Format string with tokens
-         *      %s means a C-style string (that will be passed as argument)
-         *      \n means a new line
-         *  - A value argument for every format token
-         *      In our case we provide the error message from SDL_GetError()
-         *      which will be placed at the position of %s
+         *     Format string with tokens
+         *         %s means a C-style string (that will be passed as argument)
+         *         \n means a new line
+         *     A value argument for every format token
+         *         In our case we provide the error message from SDL_GetError()
+         *         which will be placed at the position of %s
          *
          * More info: https://wiki.libsdl.org/SDL2/SDL_Log
          * Format info: https://en.cppreference.com/w/c/io/fprintf
+         *
+         *
+         * Note:
+         *     You can use printf from stdio.h or std::cout from iostream.
+         *
+         *     SDL_Log provides you a logging system with log levels.
+         *     You can pick which messages to be logged with SDL_LogSetAllPriority()
+         *     More info: https://wiki.libsdl.org/SDL2/CategoryLog
          */
         SDL_Log("%s\n", SDL_GetError());
 
@@ -59,12 +77,13 @@ int main(int argc, char** argv)
 
     /* Creating a window
      *
-     * Arguments: window title,
-     *            window x position,
-     *            window y position,
-     *            window width,
-     *            window height,
-     *            flags
+     * Arguments:
+     *     window title,
+     *     window x position,
+     *     window y position,
+     *     window width,
+     *     window height,
+     *     flags
      *
      * Returns: pointer to SDL_Window or NULL on error
      *
@@ -89,7 +108,7 @@ int main(int argc, char** argv)
     SDL_Delay(5000);
 
 
-    if(window) { // the same as: if(window != NULL)
+    if(window != NULL) {
         SDL_DestroyWindow(window);
 
         /* The window pointer points to where the window was residing in memory.

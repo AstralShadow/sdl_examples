@@ -29,10 +29,8 @@ int main(int argc, char** argv)
     SDL_Delay(5000);
 
 
-    if(window) {
-        SDL_DestroyWindow(window);
-        window = NULL;
-    }
+    SDL_DestroyWindow(window);
+    window = NULL;
 
     SDL_Quit();
 

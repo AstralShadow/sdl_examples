@@ -14,8 +14,7 @@ as comments in the source code of these examples.
 
 - [Initializing SDL and creating a window](create_window/main.c)
 
-- [Basic Rendering](basic_rendering/main.c) _(yet to be added)_
-    of points, lines and rectangles
+- [Basic Rendering](basic_rendering/main.c) of points, lines and rectangles
 
 - [Handling events](handle_events/main.c) _(yet to be added)_
     Handling events such as `mouse/keyboard input`
