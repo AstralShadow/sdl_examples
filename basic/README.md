@@ -16,6 +16,7 @@ as comments in the source code of these examples.
 
 - [Basic Rendering](basic_rendering/main.c) of points, lines and rectangles
 
-- [Handling events](handle_events/main.c) _(yet to be added)_
-    Handling events such as `mouse/keyboard input`
+- [Handling events](handle_events/main.c)
+    - Handling events such as `mouse/keyboard input` and the SDL_QUIT event.
+    - Introducing the global application loop and the event loop.
 
